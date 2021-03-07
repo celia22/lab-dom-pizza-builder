@@ -86,14 +86,7 @@ function renderGlutenFreeCrust() {
 }
 
 function renderButtons() {
-  // Iteration 3: add/remove the class "active" of each `<button class="btn">`
-/*Currently, all buttons look the same, no matter if the option is activated or not. If you notice, 
-all the buttons have an active class.
 
-<button class="btn btn-pepperoni active">Pepperoni</button>
-Write the logic for removing and adding the buttons' active class appropriately. Write the code in the 
-function renderButtons().
-*/
 if (state.pepperoni) {
   document.querySelector('.btn.btn-pepperoni').classList.add('active')
 } else {
@@ -134,7 +127,21 @@ if (state.glutenFreeCrust) {
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
+
+let finalPrice = basePrice
+let ingredientsList = document.querySelector('aside.panel.price ul')
+ingredientsList.innerHTML = ""
+
+for (var ingredientKey in ingredients) {
+  if (state[ingredientKey]) {
+    finalPrice += ingredients[ingredientKey].price
+    ingredientsList.innerHTML += `<li>$${ingredients[ingredientKey].price} ${ingredients[ingredientKey].name}</li>`
+  }
 }
+document.querySelector('aside.panel.price strong').innerHTML = "$" + finalPrice
+}
+
+
 
 renderEverything();
 
