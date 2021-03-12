@@ -127,19 +127,21 @@ if (state.glutenFreeCrust) {
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
-
-let finalPrice = basePrice
-let ingredientsList = document.querySelector('aside.panel.price ul')
-ingredientsList.innerHTML = ""
-
-for (var ingredientKey in ingredients) {
-  if (state[ingredientKey]) {
-    finalPrice += ingredients[ingredientKey].price
-    ingredientsList.innerHTML += `<li>$${ingredients[ingredientKey].price} ${ingredients[ingredientKey].name}</li>`
+  
+    let finalPrice = 0;
+    let stateArr = Object.values(state);
+    let ingredientArr = Object.values(ingredients);
+    let pricePanel = document.querySelector('aside ul');
+    pricePanel.innerHTML = '';
+    for (let i = 0; i < stateArr.length; i++) {
+      if (stateArr[i] === true) {
+        pricePanel.innerHTML += `<li>$${ingredientArr[i].price} ${ingredientArr[i].name}</li>`;
+        finalPrice += ingredientArr[i].price;
+      }
+    };
+    document.querySelector('aside strong').innerText = `$${basePrice+finalPrice}`;
   }
-}
-document.querySelector('aside.panel.price strong').innerHTML = "$" + finalPrice
-}
+
 
 
 
